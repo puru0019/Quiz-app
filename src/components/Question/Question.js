@@ -24,7 +24,7 @@ const Question = ({
 
 
   const history = useHistory();
-console.log("ques",questions,"op",options)
+
   const handleSelect = (i) => {
     if (selected === i && selected === correct) return "select";
     else if (selected === i && selected !== correct) return "wrong";
@@ -46,41 +46,13 @@ console.log("ques",questions,"op",options)
       setSelected();
      
   };
-  const handleClick1=(quesIndex)=>{
+  const handleClick=(quesIndex)=>{
     setCurrQues(quesIndex)
-    setQues(questions[0].question)
-    setQuesFlag(true)
-    setQno(1)
+    setQues(questions[quesIndex].question)
+    setQno(quesIndex+1)
     
   }
-  const handleClick2=(quesIndex)=>{
-    setCurrQues(quesIndex)
-    setQues(questions[1].question)
-    setQuesFlag(true)
-    setQno(2)
-    
-  }
-  const handleClick3=(quesIndex)=>{
-    setCurrQues(quesIndex)
-    setQues(questions[2].question)
-    setQuesFlag(true)
-    setQno(3)
-    
-  }
-  const handleClick4=(quesIndex)=>{
-    setCurrQues(quesIndex)
-    setQues(questions[3].question)
-    setQuesFlag(true)
-    setQno(4)
-    
-  }
-  const handleClick5=(quesIndex)=>{
-     setCurrQues(quesIndex)
-    setQues(questions[4].question)
-    setQuesFlag(true)
-    setQno(5)
-    
-  }
+  
   const handlePrev=()=>{
     setCurrQues(currQues - 1);
   }
@@ -93,16 +65,16 @@ console.log("ques",questions,"op",options)
   return (
     <div className="question">
    <div className="questions-five">
-   <Button  variant="contained" onClick={() => handleClick1(0)}>Question1</Button>
-     <Button   variant="contained"onClick={() => handleClick2(1)}>Question2</Button>
-     <Button  variant="contained" onClick={() => handleClick3(2)}>Question3</Button>
-     <Button   variant="contained" onClick={() => handleClick4(3)}>Question4</Button>
-     <Button variant="contained" onClick={() => handleClick5(4)}>Question5</Button>
+   <Button  variant="contained" onClick={() => handleClick(0)}>Question1</Button>
+     <Button   variant="contained"onClick={() => handleClick(1)}>Question2</Button>
+     <Button  variant="contained" onClick={() => handleClick(2)}>Question3</Button>
+     <Button   variant="contained" onClick={() => handleClick(3)}>Question4</Button>
+     <Button variant="contained" onClick={() => handleClick(4)}>Question5</Button>
    </div>
     
 
       { check ? <div className="singleQuestion">
-        <button onClick={handleClick1}>b1</button>
+        <button onClick={() => handleClick(0)}>b1</button>
       <h1> check Answers { quesFlag ? qNo : currQues + 1} :</h1>
         <h2>{quesFlag ? ques : questions[currQues].question}</h2>
         <div className="options">
@@ -143,7 +115,8 @@ console.log("ques",questions,"op",options)
       <div className="singleQuestion">
 
          <h1>Question { quesFlag ? qNo : currQues + 1} :</h1>
-        <h2>{quesFlag ? ques : questions[currQues].question}</h2>
+         {console.log("ques",questions, "curr", currQues)}
+        <h2>{questions[currQues].question}</h2>
         <div className="options">
           {error && <ErrorMessage>{error}</ErrorMessage>}
           {options &&
@@ -166,6 +139,7 @@ console.log("ques",questions,"op",options)
           variant="contained"
           color="primary"
           size="large"
+          disabled={currQues === 0}
            onClick={handlePrev}>Previous</Button>
           <Button
             variant="contained"
